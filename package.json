@@ -1,0 +1,23 @@
+{
+  "name": "hexbot",
+  "version": "0.0.1",
+  "description": "Hexbot challenge (Lonny Gomes)",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LonnyGomes/hexbot.git"
+  },
+  "keywords": [
+    "hexbot",
+    "challenge"
+  ],
+  "author": "Lonny Gomes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LonnyGomes/hexbot/issues"
+  },
+  "homepage": "https://github.com/LonnyGomes/hexbot#readme"
+}
