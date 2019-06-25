@@ -6,7 +6,14 @@ export class HexBot {
     constructor() {}
 
     getColors(count = 1) {
-        const url = END_POINT;
+        if (isNaN(count)) {
+            throw new Error('A number must be supplied');
+        }
+
+        if (count < 1 || count > 1000) {
+            throw new Error('Invalid value. Values must be between 1-1000');
+        }
+        const url = `${END_POINT}?count=${count}`;
 
         return axios.get(url).then(results => results.data);
     }
