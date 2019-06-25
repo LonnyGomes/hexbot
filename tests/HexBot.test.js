@@ -54,4 +54,23 @@ describe('HexBot', () => {
             expect(() => hexBot.getColors(1001)).toThrow(/Invalid value/);
         });
     });
+
+    describe('convertToCoords()', () => {
+        test('should throw an error if no arguments are supplied', () => {
+            const hexBot = new HexBot();
+            expect(() => hexBot.convertToCoords()).toThrow();
+        });
+
+        test('should throw an error if an invalid color is supplied', () => {
+            const hexBot = new HexBot();
+            expect(() => hexBot.convertToCoords('CAFEBABE')).toThrow(
+                /Invalid color/
+            );
+            expect(() => hexBot.convertToCoords('#CAG123')).toThrow(
+                /Invalid color/
+            );
+            expect(() => hexBot.convertToCoords('#CAFE12')).not.toThrow();
+            expect(() => hexBot.convertToCoords('#abcd12')).not.toThrow();
+        });
+    });
 });

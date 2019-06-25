@@ -17,4 +17,18 @@ export class HexBot {
 
         return axios.get(url).then(results => results.data);
     }
+
+    convertToCoords(hexColor) {
+        const re = /^\#[A-Fa-f0-9]{6}$/;
+
+        if (!hexColor) {
+            throw new Error('Must supply a hex color');
+        }
+
+        if (!hexColor.match(re)) {
+            throw new Error('Invalid color');
+        }
+
+        return [0, 0, 0];
+    }
 }
