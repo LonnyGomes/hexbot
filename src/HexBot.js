@@ -6,6 +6,11 @@ const EXOSPHERE_DISTANCE = 100000; // in kilometers
 export class HexBot {
     constructor() {}
 
+    /**
+     * Retrieves array of color values
+     * @param {number} count Number of colors
+     * @return {object} list of color values in the format {colors: [{values: '#XXXXXX'}]}
+     */
     getColors(count = 1) {
         if (isNaN(count)) {
             throw new Error('A number must be supplied');
@@ -19,6 +24,11 @@ export class HexBot {
         return axios.get(url).then(results => results.data);
     }
 
+    /**
+     * Extracts RGB value from hex string
+     * @param {string} hexColor hex color in the format #XXXXXX
+     * @return {array} r, g, b values
+     */
     extractRGB(hexColor) {
         const re = /^\#[A-Fa-f0-9]{6}$/;
 
@@ -39,6 +49,11 @@ export class HexBot {
         return [red, green, blue];
     }
 
+    /**
+     * Converts
+     * @param {array} rgb array of red, green, blue colors
+     * @return {array} array of latitude, longitude, and altitude
+     */
     rgbToCoords(rgb) {
         if (!rgb) {
             throw new Error('Must supply array of rgb coords');
