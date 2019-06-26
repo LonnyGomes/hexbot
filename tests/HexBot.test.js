@@ -55,22 +55,71 @@ describe('HexBot', () => {
         });
     });
 
-    describe('convertToCoords()', () => {
+    describe('extractRGB()', () => {
         test('should throw an error if no arguments are supplied', () => {
             const hexBot = new HexBot();
-            expect(() => hexBot.convertToCoords()).toThrow();
+            expect(() => hexBot.extractRGB()).toThrow();
         });
 
         test('should throw an error if an invalid color is supplied', () => {
             const hexBot = new HexBot();
-            expect(() => hexBot.convertToCoords('CAFEBABE')).toThrow(
+            expect(() => hexBot.extractRGB('CAFEBABE')).toThrow(
                 /Invalid color/
             );
-            expect(() => hexBot.convertToCoords('#CAG123')).toThrow(
-                /Invalid color/
+            expect(() => hexBot.extractRGB('#CAG123')).toThrow(/Invalid color/);
+            expect(() => hexBot.extractRGB('#CAFE12')).not.toThrow();
+            expect(() => hexBot.extractRGB('#abcd12')).not.toThrow();
+        });
+
+        test('should convert hexColor to reg, green, blue', () => {
+            const hexBot = new HexBot();
+
+            expect(hexBot.extractRGB('#000000')).toEqual([0, 0, 0]);
+            expect(hexBot.extractRGB('#202020')).toEqual([32, 32, 32]);
+            expect(hexBot.extractRGB('#FF0A10')).toEqual([255, 10, 16]);
+        });
+    });
+
+    describe('rgbToCoords()', () => {
+        test('should convert rbg values to lat, lon, and altitude', () => {
+            const hexBot = new HexBot();
+
+            expect(hexBot.rgbToCoords([0, 0, 0])).toEqual([-90, -180, 0]);
+            expect(hexBot.rgbToCoords([255, 255, 255])).toEqual([
+                90,
+                180,
+                100000
+            ]);
+
+            const halfResults = hexBot.rgbToCoords([127.5, 127.5, 127.5]);
+
+            expect(halfResults[0]).toEqual(0);
+            expect(halfResults[1]).toEqual(0);
+            expect(halfResults[2]).toEqual(50000);
+        });
+
+        test('should throw an error if no arguments are supplied', () => {
+            const hexBot = new HexBot();
+
+            expect(() => hexBot.rgbToCoords()).toThrow(
+                /Must supply array of rgb coords/
             );
-            expect(() => hexBot.convertToCoords('#CAFE12')).not.toThrow();
-            expect(() => hexBot.convertToCoords('#abcd12')).not.toThrow();
+        });
+
+        test('should throw an error if array is not supplied', () => {
+            const hexBot = new HexBot();
+
+            expect(() => hexBot.rgbToCoords('array')).toThrow(
+                /Must supply an array/
+            );
+        });
+
+        test('should throw an error if array length is not 3', () => {
+            const hexBot = new HexBot();
+
+            expect(() => hexBot.rgbToCoords([0, 0])).toThrow(
+                /Array length should be 3/
+            );
         });
     });
 });
