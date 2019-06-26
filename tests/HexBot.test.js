@@ -120,6 +120,7 @@ describe('HexBot', () => {
             expect(() => hexBot.rgbToCoords([0, 0])).toThrow(
                 /Array length should be 3/
             );
+            expect(() => hexBot.rgbToCoords([0, 0, 0])).not.toThrow();
         });
     });
 });
