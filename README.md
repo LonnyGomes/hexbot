@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/LonnyGomes/hexbot.svg?branch=master)](https://travis-ci.com/LonnyGomes/hexbot)
+
 ![Hexbot](https://user-images.githubusercontent.com/212941/59163439-23c05900-8ab6-11e9-8764-977334c7bba8.png)
 
 # 👋 Meet Hexbot
@@ -64,12 +66,12 @@ There's a single endpoint: `api.noopschallenge.com/hexbot`
 
 The endpoint accepts four parameters, all optional:
 
-- **count** *(optional, numeric)*: Between 1 and 1,000. Number of colors to return.
-- **width** *(optional, numeric)*: Between 10 and 100,000. Maximum width of returned points.
-- **height** *(optional, numeric)*: Between 10 and 100,000. Maximum height of returned points.
-- **seed** *(optional, string)*: Comma separated list of hex codes, up to 10. Note that hex codes should not have the `#`. Returned colors will be a mix of a random combination of two of the seeds. If you submit an invalid hex code, you'll receive an error instead of more beautiful colors.
+-   **count** _(optional, numeric)_: Between 1 and 1,000. Number of colors to return.
+-   **width** _(optional, numeric)_: Between 10 and 100,000. Maximum width of returned points.
+-   **height** _(optional, numeric)_: Between 10 and 100,000. Maximum height of returned points.
+-   **seed** _(optional, string)_: Comma separated list of hex codes, up to 10. Note that hex codes should not have the `#`. Returned colors will be a mix of a random combination of two of the seeds. If you submit an invalid hex code, you'll receive an error instead of more beautiful colors.
 
-The endpoint returns a JSON object with an array named `colors` of *n* length.
+The endpoint returns a JSON object with an array named `colors` of _n_ length.
 
 Each item in the `colors` array is an object with the property `value` and, optionally, a `coordinates` object that has `x` and `y` properties.
 
@@ -124,7 +126,6 @@ Example of seeding colors with a comma delimited string of hex codes:
 
 `GET /hexbot?count=5&seed=FF7F50,FFD700,FF8C00`
 
-
 ```
 {
   "colors": [
@@ -136,7 +137,6 @@ Example of seeding colors with a comma delimited string of hex codes:
   ]
 }
 ```
-
 
 Complete [API documentation](./API.md).
 
