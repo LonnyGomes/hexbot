@@ -1,8 +1,5 @@
 import { IndexController } from '../src/index.controller';
 
-import { HexBot } from '../src/HexBot';
-jest.mock('../src/HexBot');
-
 describe('IndexController', () => {
     describe('constructor', () => {
         test('should instantiate HexBot', () => {
@@ -13,10 +10,6 @@ describe('IndexController', () => {
     });
 
     describe('getGeoColors()', () => {
-        beforeEach(() => {
-            HexBot.mockClear();
-        });
-
         test('should throw error if a non-number is provided', async () => {
             const controller = new IndexController();
             const errMsg = /A number between/;
@@ -56,10 +49,9 @@ describe('IndexController', () => {
         test('should retrieve colors/geo coordinate pairs', async () => {
             const controller = new IndexController();
 
-            expect(HexBot.mock.instances.length).toEqual(1);
-            const hexBotInstance = HexBot.mock.instances[0];
+            controller.hexBot.getColors = jest.fn();
 
-            hexBotInstance.getColors.mockResolvedValue({
+            controller.hexBot.getColors.mockResolvedValue({
                 colors: [
                     { value: '#8CD7F3' },
                     { value: '#1DF195' },
