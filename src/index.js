@@ -1,11 +1,6 @@
 import css from './css/styles.css';
+import { CesiumController } from './cesium.controller';
 
-function component() {
-    const element = document.createElement('div');
+const cesium = new CesiumController();
 
-    element.innerHTML = 'hello world';
-
-    return element;
-}
-
-document.body.appendChild(component());
+cesium.initViewer('cesiumContainer');
