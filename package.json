@@ -4,7 +4,7 @@
     "description": "Hexbot challenge (Lonny Gomes)",
     "main": "src/index.js",
     "scripts": {
-        "build": "webpack",
+        "build": "rimraf dist && webpack --mode=production",
         "start": "webpack-dev-server --open",
         "test": "jest"
     },
@@ -32,6 +32,7 @@
         "css-loader": "^3.0.0",
         "html-webpack-plugin": "^3.2.0",
         "jest": "^24.8.0",
+        "rimraf": "^2.6.3",
         "style-loader": "^0.23.1",
         "url-loader": "^2.0.1",
         "webpack": "^4.35.0",
