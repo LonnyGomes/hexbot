@@ -66,8 +66,16 @@ describe('IndexController', () => {
                 ]
             });
 
-            const geoColors = await controller.getGeoColors();
+            const geoColors = await controller.getGeoColors(10);
             expect(geoColors.length).toEqual(10);
+
+            // confirm colors are set
+            expect(geoColors[0].color).toEqual('#8CD7F3');
+            expect(geoColors[9].color).toEqual('#0069C6');
+
+            // confirm geo coords are set
+            expect(geoColors[0].geocoords.length).toEqual(3);
+            expect(geoColors[9].geocoords.length).toEqual(3);
         });
     });
 });

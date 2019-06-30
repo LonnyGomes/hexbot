@@ -8,7 +8,7 @@ export class IndexController {
     /**
      * Retrieves geo coordinate/color pairs
      * @param {number} count total number of geocoords/colors to return, with a max of 1,000
-     * @returns {Array} array of color/geocord pairs
+     * @returns {Array} array of color/geocoord pairs in for format `{color: '#XXXXXX', gecoords: [0,0,0]}`
      */
     async getGeoColors(count) {
         if (!count) {
@@ -28,7 +28,13 @@ export class IndexController {
         let geoColors = null;
         try {
             const { colors } = await this.hexBot.getColors(count);
-            geoColors = colors;
+            geoColors = colors.map(curObj => {
+                const rgb = this.hexBot.extractRGB(curObj.value);
+                return {
+                    color: curObj.value,
+                    geocoords: this.hexBot.rgbToCoords(rgb)
+                };
+            });
         } catch (error) {
             throw error;
         }
