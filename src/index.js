@@ -1,2 +1,6 @@
 import css from './css/styles.css';
-require('./cesium.controller.js');
+import { CesiumController } from './cesium.controller';
+
+const cesium = new CesiumController();
+
+cesium.initViewer('cesiumContainer');

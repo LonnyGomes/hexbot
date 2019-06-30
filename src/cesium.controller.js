@@ -3,4 +3,13 @@ require('cesium/Widgets/widgets.css');
 
 // load Cesium viewer
 import Cesium from 'cesium/Cesium';
-const viewer = new Cesium.Viewer('cesiumContainer');
+
+export class CesiumController {
+    constructor() {
+        this.viewer = null;
+    }
+
+    initViewer(idName) {
+        this.viewer = new Cesium.Viewer(idName);
+    }
+}
