@@ -77,5 +77,18 @@ describe('IndexController', () => {
             expect(geoColors[0].geocoords.length).toEqual(3);
             expect(geoColors[9].geocoords.length).toEqual(3);
         });
+
+        test('should retrieve max colors if no argument is supplied', async () => {
+            const controller = new IndexController();
+
+            controller.hexBot.getColors = jest.fn();
+            controller.hexBot.getColors.mockResolvedValue({
+                colors: [{ value: '#8CD7F3' }, { value: '#1DF195' }]
+            });
+
+            // confirm that max count is used if not supplied
+            const geoColors = await controller.getGeoColors();
+            expect(controller.hexBot.getColors).toBeCalledWith(1000);
+        });
     });
 });
