@@ -78,5 +78,19 @@ module.exports = {
                 use: ['url-loader']
             }
         ]
+    },
+    optimization: {
+        splitChunks: {
+            // include all types of chunks
+            chunks: 'all',
+            automaticNameDelimiter: '-',
+            cacheGroups: {
+                cesium: {
+                    test: /[\\/]node_modules[\\/](cesium)[\\/]/,
+                    name: 'vendors-cesium',
+                    chunks: 'all'
+                }
+            }
+        }
     }
 };
