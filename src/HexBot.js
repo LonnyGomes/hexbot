@@ -50,7 +50,9 @@ export class HexBot {
     }
 
     /**
-     * Converts
+     * Converts an RBG value to a latitude, longitude, and altitude
+     * The latitude/longitude is interpolated from the 0-255 rgb value
+     * The altitude is computed based off of the start of the exosphere
      * @param {array} rgb array of red, green, blue colors
      * @return {array} array of latitude, longitude, and altitude
      */
@@ -67,8 +69,8 @@ export class HexBot {
             throw new Error('Array length should be 3');
         }
 
-        const longitude = (rgb[0] / 255) * 180 - 90;
-        const latitude = (rgb[1] / 255) * 360 - 180;
+        const longitude = (rgb[0] / 255) * 360 - 180;
+        const latitude = (rgb[1] / 255) * 180 - 90;
         const altitude = (rgb[2] / 255) * EXOSPHERE_DISTANCE;
 
         return [longitude, latitude, altitude];

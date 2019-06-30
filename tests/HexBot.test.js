@@ -84,10 +84,10 @@ describe('HexBot', () => {
         test('should convert rbg values to lat, lon, and altitude', () => {
             const hexBot = new HexBot();
 
-            expect(hexBot.rgbToCoords([0, 0, 0])).toEqual([-90, -180, 0]);
+            expect(hexBot.rgbToCoords([0, 0, 0])).toEqual([-180, -90, 0]);
             expect(hexBot.rgbToCoords([255, 255, 255])).toEqual([
-                90,
                 180,
+                90,
                 100000
             ]);
 
