@@ -1,11 +1,2 @@
 import css from './css/styles.css';
-
-function component() {
-    const element = document.createElement('div');
-
-    element.innerHTML = 'hello world';
-
-    return element;
-}
-
-document.body.appendChild(component());
+require('./cesium-interface.js');
