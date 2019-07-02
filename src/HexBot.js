@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const END_POINT = 'https://api.noopschallenge.com/hexbot';
-const EXOSPHERE_DISTANCE = 100000; // in kilometers
+export const EXOSPHERE_DISTANCE = 10000000; // in meters
 
 export class HexBot {
     constructor() {}
