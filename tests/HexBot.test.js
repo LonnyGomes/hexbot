@@ -1,7 +1,7 @@
 import axios from 'axios';
 jest.mock('axios');
 
-import { HexBot } from '../src/HexBot';
+import { HexBot, EXOSPHERE_DISTANCE } from '../src/HexBot';
 
 const RESULT_1 = { colors: [{ value: '#09D2FC' }] };
 const RESULT_3 = {
@@ -88,14 +88,14 @@ describe('HexBot', () => {
             expect(hexBot.rgbToCoords([255, 255, 255])).toEqual([
                 180,
                 90,
-                100000
+                EXOSPHERE_DISTANCE
             ]);
 
             const halfResults = hexBot.rgbToCoords([127.5, 127.5, 127.5]);
 
             expect(halfResults[0]).toEqual(0);
             expect(halfResults[1]).toEqual(0);
-            expect(halfResults[2]).toEqual(50000);
+            expect(halfResults[2]).toEqual(EXOSPHERE_DISTANCE / 2);
         });
 
         test('should throw an error if no arguments are supplied', () => {
