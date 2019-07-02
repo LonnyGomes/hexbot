@@ -250,68 +250,67 @@ export class ColorsDataSource {
         //[["series1",[latitude, longitude, height, ... ]
         // ["series2",[latitude, longitude, height, ... ]]
 
+        //var series = data[x];
+        const seriesName = 'defaultSeries';
+
+        //Add the name of the series to our list of possible values.
+        this._seriesNames.push(seriesName);
+
+        //Make the first series the visible one by default
+        var show = 0;
+        if (show) {
+            this._seriesToDisplay = seriesName;
+        }
         // Loop over each series
-        for (var x = 0; x < data.length; x++) {
-            var series = data[x];
-            var seriesName = series[0];
-            var coordinates = series[1];
-
-            //Add the name of the series to our list of possible values.
-            this._seriesNames.push(seriesName);
-
-            //Make the first series the visible one by default
-            var show = x === 0;
-            if (show) {
-                this._seriesToDisplay = seriesName;
-            }
+        for (let x = 0; x < data.length; x++) {
+            const curItem = data[x];
+            const coordinates = curItem.geocoords;
 
             //Now loop over each coordinate in the series and create
             // our entities from the data.
-            for (var i = 0; i < coordinates.length; i += 3) {
-                var latitude = coordinates[i];
-                var longitude = coordinates[i + 1];
-                var height = coordinates[i + 2];
+            const longitude = coordinates[0];
+            const latitude = coordinates[1];
+            const height = coordinates[2];
 
-                //Ignore lines of zero height.
-                if (height === 0) {
-                    continue;
-                }
+            // console.log('height:', height * heightScale);
 
-                var color = Cesium.Color.fromHsl(0.6 - height * 0.5, 1.0, 0.5);
-                var surfacePosition = Cesium.Cartesian3.fromDegrees(
-                    longitude,
-                    latitude,
-                    0
-                );
-                var heightPosition = Cesium.Cartesian3.fromDegrees(
-                    longitude,
-                    latitude,
-                    height * heightScale
-                );
-
-                //WebGL Globe only contains lines, so that's the only graphics we create.
-                var polyline = new Cesium.PolylineGraphics();
-                polyline.material = new Cesium.ColorMaterialProperty(color);
-                polyline.width = new Cesium.ConstantProperty(2);
-                polyline.arcType = new Cesium.ConstantProperty(
-                    Cesium.ArcType.NONE
-                );
-                polyline.positions = new Cesium.ConstantProperty([
-                    surfacePosition,
-                    heightPosition
-                ]);
-
-                //The polyline instance itself needs to be on an entity.
-                var entity = new Cesium.Entity({
-                    id: seriesName + ' index ' + i.toString(),
-                    show: show,
-                    polyline: polyline,
-                    seriesName: seriesName //Custom property to indicate series name
-                });
-
-                //Add the entity to the collection.
-                entities.add(entity);
+            //Ignore lines of zero height.
+            if (height === 0) {
+                continue;
             }
+
+            const color = Cesium.Color.fromHsl(0.6 - height * 0.5, 1.0, 0.5);
+            const surfacePosition = Cesium.Cartesian3.fromDegrees(
+                longitude,
+                latitude,
+                0
+            );
+            const heightPosition = Cesium.Cartesian3.fromDegrees(
+                longitude,
+                latitude,
+                height
+            );
+
+            //WebGL Globe only contains lines, so that's the only graphics we create.
+            const polyline = new Cesium.PolylineGraphics();
+            polyline.material = new Cesium.ColorMaterialProperty(color);
+            polyline.width = new Cesium.ConstantProperty(2);
+            polyline.arcType = new Cesium.ConstantProperty(Cesium.ArcType.NONE);
+            polyline.positions = new Cesium.ConstantProperty([
+                surfacePosition,
+                heightPosition
+            ]);
+
+            //The polyline instance itself needs to be on an entity.
+            const entity = new Cesium.Entity({
+                id: seriesName + ' index ' + x,
+                show: show,
+                polyline: polyline,
+                seriesName: seriesName //Custom property to indicate series name
+            });
+
+            //Add the entity to the collection.
+            entities.add(entity);
         }
 
         //Once all data is processed, call resumeEvents and raise the changed event.

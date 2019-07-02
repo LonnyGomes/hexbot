@@ -9,7 +9,7 @@ export class CesiumController {
         this.viewer = null;
     }
 
-    initViewer(idName) {
-        this.viewer = new Cesium.Viewer(idName);
+    initViewer(idName, opts) {
+        return (this.viewer = new Cesium.Viewer(idName, opts));
     }
 }
