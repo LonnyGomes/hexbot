@@ -303,7 +303,10 @@ export class ColorsDataSource {
 
             //The polyline instance itself needs to be on an entity.
             const entity = new Cesium.Entity({
-                id: `color: ${curItem.color}`,
+                id: `color: ${curItem.color}, [${Math.round(latitude * 100) /
+                    100}, ${Math.round(longitude * 100) / 100}], ${Math.round(
+                    height / 1000
+                )} km`,
                 show: show,
                 polyline: polyline,
                 seriesName: seriesName //Custom property to indicate series name
