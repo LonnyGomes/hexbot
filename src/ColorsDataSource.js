@@ -279,7 +279,7 @@ export class ColorsDataSource {
                 continue;
             }
 
-            const color = Cesium.Color.fromHsl(0.6 - height * 0.5, 1.0, 0.5);
+            const color = Cesium.Color.fromCssColorString(curItem.color);
             const surfacePosition = Cesium.Cartesian3.fromDegrees(
                 longitude,
                 latitude,
@@ -294,7 +294,7 @@ export class ColorsDataSource {
             //WebGL Globe only contains lines, so that's the only graphics we create.
             const polyline = new Cesium.PolylineGraphics();
             polyline.material = new Cesium.ColorMaterialProperty(color);
-            polyline.width = new Cesium.ConstantProperty(2);
+            polyline.width = new Cesium.ConstantProperty(5);
             polyline.arcType = new Cesium.ConstantProperty(Cesium.ArcType.NONE);
             polyline.positions = new Cesium.ConstantProperty([
                 surfacePosition,
@@ -303,7 +303,7 @@ export class ColorsDataSource {
 
             //The polyline instance itself needs to be on an entity.
             const entity = new Cesium.Entity({
-                id: seriesName + ' index ' + x,
+                id: `color: ${curItem.color}`,
                 show: show,
                 polyline: polyline,
                 seriesName: seriesName //Custom property to indicate series name
