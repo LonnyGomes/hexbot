@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/LonnyGomes/hexbot.svg?branch=master)](https://travis-ci.com/LonnyGomes/hexbot)
 
-![Hexbot](https://user-images.githubusercontent.com/212941/59163439-23c05900-8ab6-11e9-8764-977334c7bba8.png)
+![My Hexbot screenshot 1](images/cesium_hexbot_screenshot1.png)
+![My Hexbot screenshot 2](images/cesium_hexbot_screenshot2.png)
 
 # 👋 Meet Hexbot
 
