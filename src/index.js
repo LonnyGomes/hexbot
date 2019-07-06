@@ -8,7 +8,7 @@ const controller = new IndexController();
 const cesium = new CesiumController();
 const dataSource = new ColorsDataSource();
 
-const viewer = cesium.initViewer('cesiumContainer', {
+cesium.initViewer('cesiumContainer', {
     animation: false,
     timeline: false
 });
@@ -21,9 +21,8 @@ const colorCount = document.getElementById('clrCount');
 const colorValLbl = document.getElementById('clrVal');
 
 const updateHandler = () => {
-    colorValLbl.value = `${colorCount.value} color${
-        colorCount.value > 1 ? 's' : ''
-    }`;
+    const curVal = colorCount.value;
+    colorValLbl.value = `${curVal} color${curVal > 1 ? 's' : ''}`;
     delayedGetColors();
 };
 colorCount.addEventListener('input', updateHandler);
@@ -38,9 +37,7 @@ const updateGlobe = async (count = 1000) => {
         const geoColors = await controller.getGeoColors(count);
 
         dataSource.load(geoColors);
-        dataSource.seriesToDisplay = 'defaultSeries';
-        viewer.dataSources.removeAll(true);
-        viewer.dataSources.add(dataSource);
+        cesium.updateDataSource(dataSource);
     } catch (error) {
         console.error('Error', error.message);
     }
